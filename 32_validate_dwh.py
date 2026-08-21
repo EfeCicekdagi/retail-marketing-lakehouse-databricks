@@ -1,0 +1,4237 @@
+{
+  "datasets": [
+    {
+      "name": "81bd435e",
+      "displayName": "ds_daily_sales",
+      "queryLines": [
+        "SELECT\r\n",
+        "    DayNumber,\r\n",
+        "    WeekNumber,\r\n",
+        "    BasketCount,\r\n",
+        "    HouseholdCount,\r\n",
+        "    ProductCount,\r\n",
+        "    StoreCount,\r\n",
+        "    TotalQuantity,\r\n",
+        "    GrossSalesAmount,\r\n",
+        "    TotalDiscountAmount,\r\n",
+        "    NetSalesAmount,\r\n",
+        "    CouponTransactionCount,\r\n",
+        "    AverageBasketAmount,\r\n",
+        "    DiscountRate,\r\n",
+        "    CouponTransactionRate\r\n",
+        "FROM retail_marketing.demo_dm.vw_daily_sales_kpi\r\n",
+        "ORDER BY DayNumber;"
+      ]
+    },
+    {
+      "name": "a5a1538b",
+      "displayName": "ds_product_performance",
+      "queryLines": [
+        "SELECT\r\n",
+        "    ProductID,\r\n",
+        "    Department,\r\n",
+        "    Brand,\r\n",
+        "    CommodityDescription,\r\n",
+        "    BasketCount,\r\n",
+        "    HouseholdCount,\r\n",
+        "    StoreCount,\r\n",
+        "    TotalQuantity,\r\n",
+        "    GrossSalesAmount,\r\n",
+        "    TotalDiscountAmount,\r\n",
+        "    NetSalesAmount,\r\n",
+        "    CouponTransactionCount,\r\n",
+        "    AverageUnitNetSales,\r\n",
+        "    DiscountRate,\r\n",
+        "    CouponUsageRate,\r\n",
+        "    NetSalesRank,\r\n",
+        "    QuantityRank\r\n",
+        "FROM retail_marketing.demo_dm.vw_top_products\r\n",
+        "ORDER BY NetSalesRank;"
+      ]
+    },
+    {
+      "name": "a6cd5024",
+      "displayName": "ds_campaign_performance",
+      "queryLines": [
+        "SELECT\r\n",
+        "    CampaignID,\r\n",
+        "    CampaignDescription,\r\n",
+        "    StartDay,\r\n",
+        "    EndDay,\r\n",
+        "    CampaignDuration,\r\n",
+        "    TargetHouseholdCount,\r\n",
+        "    RedeemingHouseholdCount,\r\n",
+        "    RedemptionCount,\r\n",
+        "    DistinctCouponCount,\r\n",
+        "    RedemptionRate,\r\n",
+        "    CampaignPerformanceLevel\r\n",
+        "FROM retail_marketing.demo_dm.vw_campaign_performance"
+      ]
+    },
+    {
+      "name": "1b763834",
+      "displayName": "ds_top_10_products",
+      "queryLines": [
+        "SELECT\r\n",
+        "    ProductID,\r\n",
+        "    CommodityDescription,\r\n",
+        "    Department,\r\n",
+        "    NetSalesAmount,\r\n",
+        "    TotalQuantity,\r\n",
+        "    NetSalesRank\r\n",
+        "FROM retail_marketing.demo_dm.vw_top_products\r\n",
+        "WHERE NetSalesRank <= 10\r\n",
+        "ORDER BY NetSalesRank;"
+      ]
+    },
+    {
+      "name": "2b5eeb56",
+      "displayName": "ds_department_sales",
+      "queryLines": [
+        "SELECT\r\n",
+        "    Department,\r\n",
+        "    SUM(NetSalesAmount) AS NetSalesAmount,\r\n",
+        "    SUM(GrossSalesAmount) AS GrossSalesAmount,\r\n",
+        "    SUM(TotalDiscountAmount) AS TotalDiscountAmount,\r\n",
+        "    SUM(TotalQuantity) AS TotalQuantity,\r\n",
+        "    SUM(BasketCount) AS BasketCount\r\n",
+        "FROM retail_marketing.demo_dm.dm_product_sales\r\n",
+        "GROUP BY Department\r\n",
+        "ORDER BY NetSalesAmount DESC;"
+      ]
+    },
+    {
+      "name": "9e696dc6",
+      "displayName": "ds_promotion_performance",
+      "queryLines": [
+        "SELECT\r\n",
+        "    ProductID,\r\n",
+        "    StoreID,\r\n",
+        "    WeekNumber,\r\n",
+        "    PromotionType,\r\n",
+        "    PromotionCount,\r\n",
+        "    BasketCount,\r\n",
+        "    TotalQuantity,\r\n",
+        "    GrossSalesAmount,\r\n",
+        "    TotalDiscountAmount,\r\n",
+        "    NetSalesAmount,\r\n",
+        "    AverageBasketAmount\r\n",
+        "FROM retail_marketing.demo_dm.vw_promotion_performance\r\n",
+        "ORDER BY WeekNumber, ProductID, StoreID;"
+      ]
+    },
+    {
+      "name": "6accdd96",
+      "displayName": "ds_etl_batch",
+      "queryLines": [
+        "SELECT\r\n",
+        "    BatchID,\r\n",
+        "    ProcessDate,\r\n",
+        "    ProcessDay,\r\n",
+        "    ProcessWeek,\r\n",
+        "    LoadMode,\r\n",
+        "    BatchStatus,\r\n",
+        "    BatchStartTime,\r\n",
+        "    BatchEndTime,\r\n",
+        "    TableLoadCount,\r\n",
+        "    SuccessCount,\r\n",
+        "    WarningCount,\r\n",
+        "    SkippedCount,\r\n",
+        "    FailedCount,\r\n",
+        "    TotalSourceRowCount,\r\n",
+        "    TotalInsertedRowCount,\r\n",
+        "    TotalRejectedRowCount,\r\n",
+        "    TotalUnchangedRowCount\r\n",
+        "FROM retail_marketing.dm_marketing.vw_etl_batch_summary"
+      ]
+    },
+    {
+      "name": "0124ad2c",
+      "displayName": "ds_data_quality",
+      "queryLines": [
+        "SELECT\r\n",
+        "    BatchID,\r\n",
+        "    LayerName,\r\n",
+        "    CheckStatus,\r\n",
+        "    SeverityLevel,\r\n",
+        "    CheckCount,\r\n",
+        "    CheckedRowCount,\r\n",
+        "    FailedRowCount,\r\n",
+        "    FailureRate\r\n",
+        "FROM retail_marketing.dm_marketing.vw_data_quality_summary"
+      ]
+    },
+    {
+      "name": "79632bde",
+      "displayName": "CommodityDescription",
+      "queryLines": [
+        "SELECT\r\n",
+        "    CommodityDescription,\r\n",
+        "    SUM(NetSalesAmount) AS NetSalesAmount\r\n",
+        "FROM retail_marketing.demo_dm.dm_product_sales\r\n",
+        "GROUP BY CommodityDescription\r\n",
+        "ORDER BY NetSalesAmount DESC\r\n",
+        "LIMIT 20;"
+      ]
+    },
+    {
+      "name": "e98561b2",
+      "displayName": "CampaignPerformanceLevel,",
+      "queryLines": [
+        "SELECT\r\n",
+        "    CampaignPerformanceLevel,\r\n",
+        "    COUNT(*) AS CampaignCount\r\n",
+        "FROM retail_marketing.demo_dm.vw_campaign_performance\r\n",
+        "GROUP BY CampaignPerformanceLevel\r\n",
+        "ORDER BY CampaignCount DESC;"
+      ]
+    },
+    {
+      "name": "rfm_analysis",
+      "displayName": "RFM Customer Segmentation",
+      "queryLines": [
+        "WITH customer_metrics AS (\n",
+        "  SELECT\n",
+        "    household_key,\n",
+        "    MAX(day_no) as last_purchase_day,\n",
+        "    COUNT(DISTINCT basket_id) as frequency,\n",
+        "    SUM(net_sales_value) as monetary_value,\n",
+        "    (\n",
+        "      SELECT\n",
+        "        MAX(day_no)\n",
+        "      FROM\n",
+        "        transaction_clean\n",
+        "    )\n",
+        "      - MAX(day_no) as recency_days\n",
+        "  FROM\n",
+        "    transaction_clean\n",
+        "  GROUP BY\n",
+        "    household_key\n",
+        "),\n",
+        "rfm_scores AS (\n",
+        "  SELECT\n",
+        "    household_key,\n",
+        "    recency_days,\n",
+        "    frequency,\n",
+        "    monetary_value,\n",
+        "    NTILE(5) OVER (ORDER BY recency_days DESC) as R_score,\n",
+        "    NTILE(5) OVER (ORDER BY frequency ASC) as F_score,\n",
+        "    NTILE(5) OVER (ORDER BY monetary_value ASC) as M_score\n",
+        "  FROM\n",
+        "    customer_metrics\n",
+        ")\n",
+        "SELECT\n",
+        "  household_key,\n",
+        "  recency_days,\n",
+        "  frequency,\n",
+        "  monetary_value,\n",
+        "  R_score,\n",
+        "  F_score,\n",
+        "  M_score,\n",
+        "  CONCAT(R_score, F_score, M_score) as RFM_segment,\n",
+        "  CASE\n",
+        "    WHEN\n",
+        "      R_score >= 4\n",
+        "      AND F_score >= 4\n",
+        "      AND M_score >= 4\n",
+        "    THEN\n",
+        "      'Champions'\n",
+        "    WHEN\n",
+        "      R_score >= 3\n",
+        "      AND F_score >= 3\n",
+        "      AND M_score >= 3\n",
+        "    THEN\n",
+        "      'Loyal Customers'\n",
+        "    WHEN\n",
+        "      R_score >= 3\n",
+        "      AND F_score <= 2\n",
+        "    THEN\n",
+        "      'Potential Loyalists'\n",
+        "    WHEN\n",
+        "      R_score <= 2\n",
+        "      AND F_score >= 3\n",
+        "    THEN\n",
+        "      'At Risk'\n",
+        "    WHEN\n",
+        "      R_score <= 2\n",
+        "      AND F_score <= 2\n",
+        "    THEN\n",
+        "      'Lost'\n",
+        "    ELSE 'Others'\n",
+        "  END as customer_segment\n",
+        "FROM\n",
+        "  rfm_scores"
+      ],
+      "catalog": "retail_marketing",
+      "schema": "silver"
+    },
+    {
+      "name": "campaign_roi",
+      "displayName": "Campaign ROI & Profitability",
+      "queryLines": [
+        "WITH campaign_costs AS (\n",
+        "  SELECT\n",
+        "    p.WeekNumber,\n",
+        "    p.PromotionType,\n",
+        "    SUM(p.TotalDiscountAmount) as total_discount_cost,\n",
+        "    SUM(p.GrossSalesAmount) as gross_sales,\n",
+        "    SUM(p.NetSalesAmount) as net_sales,\n",
+        "    COUNT(DISTINCT p.ProductID) as product_count,\n",
+        "    SUM(p.BasketCount) as basket_count\n",
+        "  FROM\n",
+        "    dm_promotion_performance p\n",
+        "  GROUP BY\n",
+        "    p.WeekNumber,\n",
+        "    p.PromotionType\n",
+        "),\n",
+        "campaign_metrics AS (\n",
+        "  SELECT\n",
+        "    c.CampaignID,\n",
+        "    c.CampaignDescription,\n",
+        "    c.CampaignPerformanceLevel,\n",
+        "    c.RedemptionCount,\n",
+        "    c.TargetHouseholdCount,\n",
+        "    c.RedeemingHouseholdCount,\n",
+        "    c.RedemptionRate,\n",
+        "    cc.total_discount_cost,\n",
+        "    cc.gross_sales,\n",
+        "    cc.net_sales,\n",
+        "    cc.basket_count,\n",
+        "    CASE\n",
+        "      WHEN cc.total_discount_cost > 0 THEN (cc.net_sales / cc.total_discount_cost)\n",
+        "      ELSE 0\n",
+        "    END as roi_ratio,\n",
+        "    cc.net_sales - cc.total_discount_cost as net_profit\n",
+        "  FROM\n",
+        "    dm_campaign_performance c\n",
+        "      LEFT JOIN campaign_costs cc\n",
+        "        ON 1 = 1\n",
+        ")\n",
+        "SELECT\n",
+        "  CampaignID,\n",
+        "  CampaignDescription,\n",
+        "  CampaignPerformanceLevel,\n",
+        "  RedemptionCount,\n",
+        "  TargetHouseholdCount,\n",
+        "  RedeemingHouseholdCount,\n",
+        "  RedemptionRate,\n",
+        "  total_discount_cost,\n",
+        "  gross_sales,\n",
+        "  net_sales,\n",
+        "  basket_count,\n",
+        "  roi_ratio,\n",
+        "  net_profit,\n",
+        "  CASE\n",
+        "    WHEN roi_ratio >= 3 THEN 'Yüksek ROI'\n",
+        "    WHEN roi_ratio >= 1.5 THEN 'Orta ROI'\n",
+        "    ELSE 'Düşük ROI'\n",
+        "  END as roi_category\n",
+        "FROM\n",
+        "  campaign_metrics"
+      ],
+      "catalog": "retail_marketing",
+      "schema": "demo_dm"
+    },
+    {
+      "name": "customer_behavior",
+      "displayName": "Customer Behavior Metrics",
+      "queryLines": [
+        "WITH customer_campaign_activity AS (\n",
+        "  SELECT\n",
+        "    t.household_key,\n",
+        "    t.week_no,\n",
+        "    t.basket_id,\n",
+        "    t.net_sales_value,\n",
+        "    t.quantity,\n",
+        "    CASE\n",
+        "      WHEN t.coupon_match_disc > 0 THEN 1\n",
+        "      ELSE 0\n",
+        "    END as used_campaign,\n",
+        "    cp.CampaignID,\n",
+        "    cp.CampaignDescription,\n",
+        "    cp.StartDay / 7 as campaign_start_week,\n",
+        "    cp.EndDay / 7 as campaign_end_week\n",
+        "  FROM\n",
+        "    retail_marketing.silver.transaction_clean t\n",
+        "      LEFT JOIN retail_marketing.demo_dm.vw_campaign_performance cp\n",
+        "        ON t.week_no BETWEEN (cp.StartDay / 7) AND (cp.EndDay / 7)\n",
+        "),\n",
+        "customer_metrics AS (\n",
+        "  SELECT\n",
+        "    household_key,\n",
+        "    used_campaign,\n",
+        "    COUNT(DISTINCT basket_id) as basket_count,\n",
+        "    SUM(net_sales_value) as total_spend,\n",
+        "    AVG(net_sales_value) as avg_basket_value,\n",
+        "    SUM(quantity) as total_quantity\n",
+        "  FROM\n",
+        "    customer_campaign_activity\n",
+        "  GROUP BY\n",
+        "    household_key,\n",
+        "    used_campaign\n",
+        ")\n",
+        "SELECT\n",
+        "  CASE used_campaign\n",
+        "    WHEN 1 THEN 'Kampanyalı'\n",
+        "    ELSE 'Kampanyasız'\n",
+        "  END as customer_group,\n",
+        "  COUNT(DISTINCT household_key) as customer_count,\n",
+        "  SUM(basket_count) as total_baskets,\n",
+        "  AVG(basket_count) as avg_baskets_per_customer,\n",
+        "  SUM(total_spend) as total_revenue,\n",
+        "  AVG(avg_basket_value) as avg_basket_value,\n",
+        "  SUM(total_quantity) as total_units\n",
+        "FROM\n",
+        "  customer_metrics\n",
+        "GROUP BY\n",
+        "  used_campaign"
+      ]
+    },
+    {
+      "name": "timing_analysis",
+      "displayName": "Campaign Timing & Seasonality",
+      "queryLines": [
+        "WITH daily_campaign_sales AS (\n",
+        "  SELECT\n",
+        "    t.day_no,\n",
+        "    t.week_no,\n",
+        "    DAYOFWEEK(DATE_ADD('2016-01-01', CAST(t.day_no AS INT))) as day_of_week,\n",
+        "    MONTH(DATE_ADD('2016-01-01', CAST(t.day_no AS INT))) as month_number,\n",
+        "    CASE\n",
+        "      WHEN t.coupon_match_disc > 0 THEN 'With Campaign'\n",
+        "      ELSE 'Without Campaign'\n",
+        "    END as campaign_status,\n",
+        "    COUNT(DISTINCT t.basket_id) as basket_count,\n",
+        "    SUM(t.net_sales_value) as net_sales,\n",
+        "    AVG(t.net_sales_value) as avg_basket_value,\n",
+        "    COUNT(DISTINCT t.household_key) as customer_count\n",
+        "  FROM\n",
+        "    retail_marketing.silver.transaction_clean t\n",
+        "  GROUP BY\n",
+        "    t.day_no,\n",
+        "    t.week_no,\n",
+        "    day_of_week,\n",
+        "    month_number,\n",
+        "    campaign_status\n",
+        ")\n",
+        "SELECT\n",
+        "  day_no,\n",
+        "  week_no,\n",
+        "  CASE day_of_week\n",
+        "    WHEN 1 THEN 'Pazar'\n",
+        "    WHEN 2 THEN 'Pazartesi'\n",
+        "    WHEN 3 THEN 'Salı'\n",
+        "    WHEN 4 THEN 'Çarşamba'\n",
+        "    WHEN 5 THEN 'Perşembe'\n",
+        "    WHEN 6 THEN 'Cuma'\n",
+        "    WHEN 7 THEN 'Cumartesi'\n",
+        "  END as day_name,\n",
+        "  CASE month_number\n",
+        "    WHEN 1 THEN 'Ocak'\n",
+        "    WHEN 2 THEN 'Şubat'\n",
+        "    WHEN 3 THEN 'Mart'\n",
+        "    WHEN 4 THEN 'Nisan'\n",
+        "    WHEN 5 THEN 'Mayıs'\n",
+        "    WHEN 6 THEN 'Haziran'\n",
+        "    WHEN 7 THEN 'Temmuz'\n",
+        "    WHEN 8 THEN 'Ağustos'\n",
+        "    WHEN 9 THEN 'Eylül'\n",
+        "    WHEN 10 THEN 'Ekim'\n",
+        "    WHEN 11 THEN 'Kasım'\n",
+        "    WHEN 12 THEN 'Aralık'\n",
+        "  END as month_name,\n",
+        "  campaign_status,\n",
+        "  basket_count,\n",
+        "  net_sales,\n",
+        "  avg_basket_value,\n",
+        "  customer_count\n",
+        "FROM\n",
+        "  daily_campaign_sales\n",
+        "ORDER BY\n",
+        "  day_no"
+      ]
+    },
+    {
+      "name": "geographic_analysis",
+      "displayName": "Geographic Performance",
+      "queryLines": [
+        "WITH store_metrics AS (\n",
+        "  SELECT\n",
+        "    t.store_id,\n",
+        "    COUNT(DISTINCT t.basket_id) as basket_count,\n",
+        "    COUNT(DISTINCT t.household_key) as customer_count,\n",
+        "    SUM(t.net_sales_value) as total_sales,\n",
+        "    AVG(t.net_sales_value) as avg_basket_value,\n",
+        "    SUM(\n",
+        "      CASE\n",
+        "        WHEN t.coupon_match_disc > 0 THEN 1\n",
+        "        ELSE 0\n",
+        "      END\n",
+        "    ) as campaign_transactions,\n",
+        "    COUNT(t.basket_id) as total_transactions,\n",
+        "    SUM(t.coupon_match_disc) as total_discount\n",
+        "  FROM\n",
+        "    retail_marketing.silver.transaction_clean t\n",
+        "  GROUP BY\n",
+        "    t.store_id\n",
+        ")\n",
+        "SELECT\n",
+        "  store_id,\n",
+        "  basket_count,\n",
+        "  customer_count,\n",
+        "  total_sales,\n",
+        "  avg_basket_value,\n",
+        "  campaign_transactions,\n",
+        "  total_transactions,\n",
+        "  total_discount,\n",
+        "  ROUND(campaign_transactions * 100.0 / total_transactions, 2) as campaign_adoption_rate,\n",
+        "  ROUND(total_sales / customer_count, 2) as revenue_per_customer\n",
+        "FROM\n",
+        "  store_metrics\n",
+        "ORDER BY\n",
+        "  total_sales DESC"
+      ]
+    },
+    {
+      "name": "basket_analysis_v2",
+      "displayName": "Market Basket & Category Analysis",
+      "queryLines": [
+        "WITH basket_products AS (\n",
+        "  SELECT\n",
+        "    t.basket_id,\n",
+        "    t.household_key,\n",
+        "    t.product_id,\n",
+        "    p.CommodityDescription,\n",
+        "    t.net_sales_value,\n",
+        "    t.quantity,\n",
+        "    CASE\n",
+        "      WHEN t.coupon_match_disc > 0 THEN 1\n",
+        "      ELSE 0\n",
+        "    END as has_promotion\n",
+        "  FROM\n",
+        "    retail_marketing.silver.transaction_clean t\n",
+        "      LEFT JOIN retail_marketing.dwh.dim_product p\n",
+        "        ON t.product_id = p.ProductID\n",
+        "  WHERE\n",
+        "    p.IsCurrent = true\n",
+        ")\n",
+        "SELECT\n",
+        "  CommodityDescription as category,\n",
+        "  COUNT(DISTINCT basket_id) as basket_count,\n",
+        "  COUNT(DISTINCT household_key) as customer_count,\n",
+        "  SUM(net_sales_value) as total_sales,\n",
+        "  AVG(net_sales_value) as avg_item_value,\n",
+        "  SUM(quantity) as total_quantity,\n",
+        "  SUM(has_promotion) as promotion_count,\n",
+        "  COUNT(*) as transaction_count,\n",
+        "  ROUND(SUM(has_promotion) * 100.0 / COUNT(*), 2) as promotion_rate\n",
+        "FROM\n",
+        "  basket_products\n",
+        "GROUP BY\n",
+        "  CommodityDescription\n",
+        "ORDER BY\n",
+        "  total_sales DESC"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "dded4ee7",
+      "displayName": "Executive Overview",
+      "layout": [
+        {
+          "widget": {
+            "name": "net-sales",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "81bd435e",
+                  "fields": [
+                    {
+                      "name": "sum(NetSalesAmount)",
+                      "expression": "SUM(`NetSalesAmount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "💰 Net Satışlar",
+                "showDescription": true,
+                "description": "Toplam net satış tutarı"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(NetSalesAmount)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "gross-sales",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "81bd435e",
+                  "fields": [
+                    {
+                      "name": "sum(GrossSalesAmount)",
+                      "expression": "SUM(`GrossSalesAmount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "📊 Brüt Satışlar",
+                "showDescription": true,
+                "description": "Toplam brüt satış tutarı"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(GrossSalesAmount)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "basket-count",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "81bd435e",
+                  "fields": [
+                    {
+                      "name": "sum(BasketCount)",
+                      "expression": "SUM(`BasketCount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "🛒 Sepet Sayısı",
+                "showDescription": true,
+                "description": "Toplam alışveriş sepeti adedi"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(BasketCount)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 0,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "customers",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "81bd435e",
+                  "fields": [
+                    {
+                      "name": "sum(HouseholdCount)",
+                      "expression": "SUM(`HouseholdCount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "👥 Müşteri Sayısı",
+                "showDescription": true,
+                "description": "Toplam hane sayısı"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(HouseholdCount)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 3,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "avg-basket",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "81bd435e",
+                  "fields": [
+                    {
+                      "name": "avg(AverageBasketAmount)",
+                      "expression": "AVG(`AverageBasketAmount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "📈 Ortalama Sepet",
+                "showDescription": true,
+                "description": "Ortalama sepet tutarı"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "avg(AverageBasketAmount)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 0,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "discount-rate",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "81bd435e",
+                  "fields": [
+                    {
+                      "name": "avg(DiscountRate)",
+                      "expression": "AVG(`DiscountRate`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "💸 İndirim Oranı",
+                "showDescription": true,
+                "description": "Ortalama indirim oranı"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "avg(DiscountRate)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 3,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "daily-net-sales-trend",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "81bd435e",
+                  "fields": [
+                    {
+                      "name": "DayNumber",
+                      "expression": "`DayNumber`"
+                    },
+                    {
+                      "name": "sum(NetSalesAmount)",
+                      "expression": "SUM(`NetSalesAmount`)"
+                    },
+                    {
+                      "name": "sum(GrossSalesAmount)",
+                      "expression": "SUM(`GrossSalesAmount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "📊 Günlük Satış Trendi",
+                "showDescription": true,
+                "description": "Günlük net ve brüt satış performansı"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "DayNumber",
+                  "axis": {
+                    "title": "Gün"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "fields": [
+                    {
+                      "fieldName": "sum(NetSalesAmount)",
+                      "displayName": "Net Satış"
+                    },
+                    {
+                      "fieldName": "sum(GrossSalesAmount)",
+                      "displayName": "Brüt Satış"
+                    }
+                  ],
+                  "axis": {
+                    "title": "Tutar (TL)"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "b33546f4",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "81bd435e",
+                  "fields": [
+                    {
+                      "name": "DayNumber",
+                      "expression": "`DayNumber`"
+                    },
+                    {
+                      "name": "GrossSalesAmount",
+                      "expression": "`GrossSalesAmount`"
+                    },
+                    {
+                      "name": "TotalDiscountAmount",
+                      "expression": "`TotalDiscountAmount`"
+                    },
+                    {
+                      "name": "NetSalesAmount",
+                      "expression": "`NetSalesAmount`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 1,
+              "frame": {
+                "showTitle": true,
+                "title": "Gross Sales, Discounts and Net Sales"
+              },
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "widgetType": "combo",
+              "encodings": {
+                "x": {
+                  "fieldName": "DayNumber",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "primary": {
+                    "fields": [
+                      {
+                        "fieldName": "GrossSalesAmount"
+                      },
+                      {
+                        "fieldName": "TotalDiscountAmount"
+                      }
+                    ]
+                  },
+                  "secondary": {
+                    "fields": [
+                      {
+                        "fieldName": "NetSalesAmount"
+                      }
+                    ]
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "weekly-net-sales-1",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "81bd435e",
+                  "fields": [
+                    {
+                      "name": "WeekNumber",
+                      "expression": "`WeekNumber`"
+                    },
+                    {
+                      "name": "sum(NetSalesAmount)",
+                      "expression": "SUM(`NetSalesAmount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "📅 Haftalık Net Satışlar",
+                "showDescription": true,
+                "description": "Haftalara göre net satış performansı"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "WeekNumber",
+                  "axis": {
+                    "title": "Hafta"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(NetSalesAmount)",
+                  "axis": {
+                    "title": "Net Satış (TL)"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "line-chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "81bd435e",
+                  "fields": [
+                    {
+                      "name": "DayNumber",
+                      "expression": "`DayNumber`"
+                    },
+                    {
+                      "name": "avg(CouponTransactionRate)",
+                      "expression": "AVG(`CouponTransactionRate`)"
+                    },
+                    {
+                      "name": "sum(CouponTransactionCount)",
+                      "expression": "SUM(`CouponTransactionCount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "🎫 Kupon Kullanım Trendi",
+                "showDescription": true,
+                "description": "Günlük kupon kullanım oranı ve sayısı"
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "DayNumber",
+                  "axis": {
+                    "title": "Gün"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "fields": [
+                    {
+                      "fieldName": "avg(CouponTransactionRate)",
+                      "displayName": "Kullanım Oranı"
+                    },
+                    {
+                      "fieldName": "sum(CouponTransactionCount)",
+                      "displayName": "Kullanım Sayısı"
+                    }
+                  ]
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 12,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "d363d149",
+      "displayName": "Product & Customer Performance",
+      "layout": [
+        {
+          "widget": {
+            "name": "32633825",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "1b763834",
+                  "fields": [
+                    {
+                      "name": "CommodityDescription",
+                      "expression": "`CommodityDescription`"
+                    },
+                    {
+                      "name": "sum(NetSalesAmount)",
+                      "expression": "SUM(`NetSalesAmount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "🍽️ Ürün Kategorisi Net Satışları",
+                "showDescription": true,
+                "description": "Ürün kategorilerine göre net satış performansı"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "CommodityDescription",
+                  "axis": {
+                    "title": "Ürün Kategorisi"
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(NetSalesAmount)",
+                  "axis": {
+                    "title": "Net Satış (TL)"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "net-sales-by-department",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a5a1538b",
+                  "fields": [
+                    {
+                      "name": "Department",
+                      "expression": "`Department`"
+                    },
+                    {
+                      "name": "sum(NetSalesAmount)",
+                      "expression": "SUM(`NetSalesAmount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "🏪 Departmana Göre Net Satışlar",
+                "showDescription": true,
+                "description": "Departmanların net satış performansları"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "Department",
+                  "axis": {
+                    "title": "Departman"
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(NetSalesAmount)",
+                  "axis": {
+                    "title": "Net Satış (TL)"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "average-discount-rate-by-department",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a5a1538b",
+                  "fields": [
+                    {
+                      "name": "Department",
+                      "expression": "`Department`"
+                    },
+                    {
+                      "name": "avg(DiscountRate)",
+                      "expression": "AVG(`DiscountRate`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "💸 Departmana Göre İndirim Oranı",
+                "showDescription": true,
+                "description": "Departmanların ortalama indirim oranları"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "Department",
+                  "axis": {
+                    "title": "Departman"
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(DiscountRate)",
+                  "axis": {
+                    "title": "İndirim Oranı (%)"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "discount-rate-vs-net-sales",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a5a1538b",
+                  "fields": [
+                    {
+                      "name": "DiscountRate",
+                      "expression": "`DiscountRate`"
+                    },
+                    {
+                      "name": "NetSalesAmount",
+                      "expression": "`NetSalesAmount`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "📊 İndirim Oranı vs Net Satış",
+                "showDescription": true,
+                "description": "İndirim oranı ile satış arasındaki ilişki"
+              },
+              "version": 3,
+              "widgetType": "scatter",
+              "encodings": {
+                "x": {
+                  "fieldName": "DiscountRate",
+                  "axis": {
+                    "title": "İndirim Oranı (%)"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "NetSalesAmount",
+                  "axis": {
+                    "title": "Net Satış (TL)"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "ee20f3fe",
+      "displayName": "Campaign & Promotion Analysis",
+      "layout": [
+        {
+          "widget": {
+            "name": "total-campaigns",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a6cd5024",
+                  "fields": [
+                    {
+                      "name": "countdistinct(CampaignID)",
+                      "expression": "COUNT(DISTINCT `CampaignID`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "📊 Toplam Kampanya",
+                "showDescription": true,
+                "description": "Aktif kampanya sayısı"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "countdistinct(CampaignID)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "targeted-households",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a6cd5024",
+                  "fields": [
+                    {
+                      "name": "sum(TargetHouseholdCount)",
+                      "expression": "SUM(`TargetHouseholdCount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "🎯 Hedeflenen Haneler",
+                "showDescription": true,
+                "description": "Kampanya hedef kitlesi"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(TargetHouseholdCount)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 0,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "redeeming-households",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a6cd5024",
+                  "fields": [
+                    {
+                      "name": "sum(RedeemingHouseholdCount)",
+                      "expression": "SUM(`RedeemingHouseholdCount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "✅ Yararlanan Haneler",
+                "showDescription": true,
+                "description": "Kampanyadan faydalanan"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(RedeemingHouseholdCount)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 3,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "average-redemption-rate",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a6cd5024",
+                  "fields": [
+                    {
+                      "name": "avg(RedemptionRate)",
+                      "expression": "AVG(`RedemptionRate`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "📈 Ortalama Kullanım Oranı",
+                "showDescription": true,
+                "description": "Kampanya başarı oranı"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "avg(RedemptionRate)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 3,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "total-redemptions",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a6cd5024",
+                  "fields": [
+                    {
+                      "name": "sum(RedemptionCount)",
+                      "expression": "SUM(`RedemptionCount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "🎫 Toplam Kullanım",
+                "showDescription": true,
+                "description": "Kupon kullanım sayısı"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(RedemptionCount)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 0,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "campaign-redemption-rate",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a6cd5024",
+                  "fields": [
+                    {
+                      "name": "CampaignDescription",
+                      "expression": "`CampaignDescription`"
+                    },
+                    {
+                      "name": "approx_percentile(RedemptionRate, percentage=0_5)",
+                      "expression": "APPROX_PERCENTILE(`RedemptionRate`, 0.5)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "📊 Kampanya Kullanım Oranları",
+                "showDescription": true,
+                "description": "Kampanyaların medyan kullanım oranları"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "CampaignDescription",
+                  "axis": {
+                    "title": "Kampanya"
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "approx_percentile(RedemptionRate, percentage=0_5)",
+                  "axis": {
+                    "title": "Kullanım Oranı"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "targeted-vs-redeeming-households-1",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a6cd5024",
+                  "fields": [
+                    {
+                      "name": "CampaignDescription",
+                      "expression": "`CampaignDescription`"
+                    },
+                    {
+                      "name": "sum(TargetHouseholdCount)",
+                      "expression": "SUM(`TargetHouseholdCount`)"
+                    },
+                    {
+                      "name": "sum(RedeemingHouseholdCount)",
+                      "expression": "SUM(`RedeemingHouseholdCount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "🎯 Hedeflenen vs Yararlanan Haneler",
+                "showDescription": true,
+                "description": "Kampanya hedef ve gerçekleşen haneler"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "CampaignDescription",
+                  "axis": {
+                    "title": "Kampanya"
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "fields": [
+                    {
+                      "fieldName": "sum(TargetHouseholdCount)",
+                      "displayName": "Hedeflenen"
+                    },
+                    {
+                      "fieldName": "sum(RedeemingHouseholdCount)",
+                      "displayName": "Yararlanan"
+                    }
+                  ],
+                  "axis": {
+                    "title": "Hane Sayısı"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "campaign-performance-distribution",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "e98561b2",
+                  "fields": [
+                    {
+                      "name": "sum(CampaignCount)",
+                      "expression": "SUM(`CampaignCount`)"
+                    },
+                    {
+                      "name": "CampaignPerformanceLevel",
+                      "expression": "`CampaignPerformanceLevel`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "📊 Kampanya Performans Dağılımı",
+                "showDescription": true,
+                "description": "Kampanyaların performans seviyelerine göre dağılımı"
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum(CampaignCount)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "CampaignPerformanceLevel",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "average-basket-value-promotion-type",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "9e696dc6",
+                  "fields": [
+                    {
+                      "name": "PromotionType",
+                      "expression": "`PromotionType`"
+                    },
+                    {
+                      "name": "avg(AverageBasketAmount)",
+                      "expression": "AVG(`AverageBasketAmount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "🛒 Promosyon Tipine Göre Ortalama Sepet Değeri",
+                "showDescription": true,
+                "description": "Promosyon türlerine göre sepet ortalamaları"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "PromotionType",
+                  "axis": {
+                    "title": "Promosyon Tipi"
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(AverageBasketAmount)",
+                  "axis": {
+                    "title": "Ortalama Sepet (TL)"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 18,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "discount-rate-promotion-type",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "9e696dc6",
+                  "fields": [
+                    {
+                      "name": "PromotionType",
+                      "expression": "`PromotionType`"
+                    },
+                    {
+                      "name": "avg(DiscountRate)",
+                      "expression": "AVG(`DiscountRate`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "💰 Promosyon Tipine Göre İndirim Oranı",
+                "showDescription": true,
+                "description": "Promosyon türlerine göre indirim oranları"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "PromotionType",
+                  "axis": {
+                    "title": "Promosyon Tipi"
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(DiscountRate)",
+                  "axis": {
+                    "title": "İndirim Oranı (%)"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 18,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "top_campaigns_by_redemption",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a6cd5024",
+                  "fields": [
+                    {
+                      "name": "CampaignDescription",
+                      "expression": "`CampaignDescription`"
+                    },
+                    {
+                      "name": "sum(RedemptionCount)",
+                      "expression": "SUM(`RedemptionCount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "🏆 En Çok Kullanılan Kampanyalar",
+                "showTitle": true,
+                "showDescription": true,
+                "description": "Kampanyaların toplam kullanım sayılarına göre sıralaması"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "CampaignDescription",
+                  "axis": {
+                    "title": "Kampanya"
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(RedemptionCount)",
+                  "axis": {
+                    "title": "Kullanım Sayısı"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 24,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "promosyon_tipi_net_satis",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "9e696dc6",
+                  "fields": [
+                    {
+                      "name": "PromotionType",
+                      "expression": "`PromotionType`"
+                    },
+                    {
+                      "name": "sum(NetSalesAmount)",
+                      "expression": "SUM(`NetSalesAmount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "💰 Promosyon Tipine Göre Net Satışlar",
+                "showTitle": true,
+                "showDescription": true,
+                "description": "Promosyon türlerine göre toplam net satış tutarları"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "PromotionType",
+                  "axis": {
+                    "title": "Promosyon Tipi"
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(NetSalesAmount)",
+                  "axis": {
+                    "title": "Net Satış (TL)"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 12,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "avg_roi",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "campaign_roi",
+                  "fields": [
+                    {
+                      "name": "avg(roi_ratio)",
+                      "expression": "AVG(`roi_ratio`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "💰 Ortalama ROI Oranı",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "avg(roi_ratio)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 30,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "total_profit",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "campaign_roi",
+                  "fields": [
+                    {
+                      "name": "sum(net_profit)",
+                      "expression": "SUM(`net_profit`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "📈 Toplam Net Kar",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(net_profit)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 30,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "total_discount_cost",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "campaign_roi",
+                  "fields": [
+                    {
+                      "name": "sum(total_discount_cost)",
+                      "expression": "SUM(`total_discount_cost`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "💸 Toplam İndirim Maliyeti",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_discount_cost)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 30,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "total_net_sales_roi",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "campaign_roi",
+                  "fields": [
+                    {
+                      "name": "sum(net_sales)",
+                      "expression": "SUM(`net_sales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "🎯 Net Satış Toplamı",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(net_sales)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 9,
+            "y": 30,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "campaign_roi_chart",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "campaign_roi",
+                  "fields": [
+                    {
+                      "name": "CampaignDescription",
+                      "expression": "`CampaignDescription`"
+                    },
+                    {
+                      "name": "avg(roi_ratio)",
+                      "expression": "AVG(`roi_ratio`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "📊 Kampanyalara Göre ROI",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "CampaignDescription",
+                  "displayName": "CampaignDescription",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(roi_ratio)",
+                  "displayName": "roi_ratio",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "CampaignDescription",
+                  "displayName": "CampaignDescription",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 33,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "roi_category_dist",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "campaign_roi",
+                  "fields": [
+                    {
+                      "name": "countdistinct(CampaignID)",
+                      "expression": "COUNT(DISTINCT `CampaignID`)"
+                    },
+                    {
+                      "name": "roi_category",
+                      "expression": "`roi_category`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "🎯 ROI Kategori Dağılımı",
+                "showTitle": true
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "countdistinct(CampaignID)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "CampaignID"
+                },
+                "color": {
+                  "fieldName": "roi_category",
+                  "displayName": "roi_category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 33,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "discount_vs_profit",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "campaign_roi",
+                  "fields": [
+                    {
+                      "name": "CampaignDescription",
+                      "expression": "`CampaignDescription`"
+                    },
+                    {
+                      "name": "sum(total_discount_cost)",
+                      "expression": "SUM(`total_discount_cost`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "💸 İndirim Maliyeti vs Net Kar",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "CampaignDescription",
+                  "displayName": "CampaignDescription",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_discount_cost)",
+                  "displayName": "total_discount_cost",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "CampaignDescription",
+                  "displayName": "CampaignDescription",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 39,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "sales_by_day",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "timing_analysis",
+                  "fields": [
+                    {
+                      "name": "day_name",
+                      "expression": "`day_name`"
+                    },
+                    {
+                      "name": "sum(net_sales)",
+                      "expression": "SUM(`net_sales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "📅 Haftanın Günlerine Göre Satışlar",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "day_name",
+                  "displayName": "day_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(net_sales)",
+                  "displayName": "net_sales",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "day_name",
+                  "displayName": "day_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 45,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "campaign_status_sales",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "timing_analysis",
+                  "fields": [
+                    {
+                      "name": "campaign_status",
+                      "expression": "`campaign_status`"
+                    },
+                    {
+                      "name": "sum(net_sales)",
+                      "expression": "SUM(`net_sales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "📊 Kampanya Durum Karşılaştırma",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "campaign_status",
+                  "displayName": "campaign_status",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(net_sales)",
+                  "displayName": "net_sales",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "campaign_status",
+                  "displayName": "campaign_status",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 45,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "monthly_trend",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "timing_analysis",
+                  "fields": [
+                    {
+                      "name": "month_name",
+                      "expression": "`month_name`"
+                    },
+                    {
+                      "name": "sum(net_sales)",
+                      "expression": "SUM(`net_sales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "📈 Aylık Satış Trendi",
+                "showTitle": true
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "month_name",
+                  "displayName": "month_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(net_sales)",
+                  "displayName": "net_sales",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "month_name",
+                  "displayName": "month_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 51,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "sales_by_store",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "geographic_analysis",
+                  "fields": [
+                    {
+                      "name": "store_id",
+                      "expression": "`store_id`"
+                    },
+                    {
+                      "name": "sum(total_sales)",
+                      "expression": "SUM(`total_sales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "🏪 Mağazalara Göre Satışlar",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "store_id",
+                  "displayName": "store_id",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_sales)",
+                  "displayName": "total_sales",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "store_id",
+                  "displayName": "store_id",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 57,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "campaign_adoption_by_store",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "geographic_analysis",
+                  "fields": [
+                    {
+                      "name": "store_id",
+                      "expression": "`store_id`"
+                    },
+                    {
+                      "name": "avg(campaign_adoption_rate)",
+                      "expression": "AVG(`campaign_adoption_rate`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "🎯 Kampanya Benimseme Oranı",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "store_id",
+                  "displayName": "store_id",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(campaign_adoption_rate)",
+                  "displayName": "campaign_adoption_rate",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "store_id",
+                  "displayName": "store_id",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 57,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "revenue_per_customer_store",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "geographic_analysis",
+                  "fields": [
+                    {
+                      "name": "store_id",
+                      "expression": "`store_id`"
+                    },
+                    {
+                      "name": "avg(revenue_per_customer)",
+                      "expression": "AVG(`revenue_per_customer`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "💰 Müşteri Başına Gelir",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "store_id",
+                  "displayName": "store_id",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(revenue_per_customer)",
+                  "displayName": "revenue_per_customer",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "store_id",
+                  "displayName": "store_id",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 63,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "sales_by_category",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "basket_analysis_v2",
+                  "fields": [
+                    {
+                      "name": "category",
+                      "expression": "`category`"
+                    },
+                    {
+                      "name": "sum(total_sales)",
+                      "expression": "SUM(`total_sales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "📊 Kategoriye Göre Satışlar",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "category",
+                  "displayName": "category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_sales)",
+                  "displayName": "total_sales",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "category",
+                  "displayName": "category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 69,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "promo_rate_category",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "basket_analysis_v2",
+                  "fields": [
+                    {
+                      "name": "category",
+                      "expression": "`category`"
+                    },
+                    {
+                      "name": "avg(promotion_rate)",
+                      "expression": "AVG(`promotion_rate`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "🎯 Promosyon Oranı (Kategoriler)",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "category",
+                  "displayName": "category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(promotion_rate)",
+                  "displayName": "promotion_rate",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "category",
+                  "displayName": "category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 69,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "avg_item_per_basket",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "basket_analysis_v2",
+                  "fields": [
+                    {
+                      "name": "category",
+                      "expression": "`category`"
+                    },
+                    {
+                      "name": "avg(avg_item_value)",
+                      "expression": "AVG(`avg_item_value`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "🛒 Sepet Başına Ortalama Ürün",
+                "showTitle": true
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "category",
+                  "displayName": "category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(avg_item_value)",
+                  "displayName": "avg_item_value",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "category",
+                  "displayName": "category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 75,
+            "width": 12,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "customer_segmentation",
+      "displayName": "Customer Segmentation & Behavior",
+      "layout": [
+        {
+          "widget": {
+            "name": "total_customers",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "rfm_analysis",
+                  "fields": [
+                    {
+                      "name": "countdistinct(household_key)",
+                      "expression": "COUNT(DISTINCT `household_key`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "👥 Toplam Müşteri",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "countdistinct(household_key)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "champions_count",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "rfm_analysis",
+                  "fields": [
+                    {
+                      "name": "countdistinct(household_key)",
+                      "expression": "COUNT(DISTINCT `household_key`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`customer_segment` = 'Champions'"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "🏆 Champions",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "countdistinct(household_key)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "loyal_count",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "rfm_analysis",
+                  "fields": [
+                    {
+                      "name": "countdistinct(household_key)",
+                      "expression": "COUNT(DISTINCT `household_key`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`customer_segment` = 'Loyal Customers'"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "⭐ Sadık Müşteri",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "countdistinct(household_key)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 0,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "at_risk_count",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "rfm_analysis",
+                  "fields": [
+                    {
+                      "name": "countdistinct(household_key)",
+                      "expression": "COUNT(DISTINCT `household_key`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`customer_segment` = 'At Risk'"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "⚠️ Risk Altında",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "countdistinct(household_key)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 3,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "lost_count",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "rfm_analysis",
+                  "fields": [
+                    {
+                      "name": "countdistinct(household_key)",
+                      "expression": "COUNT(DISTINCT `household_key`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`customer_segment` = 'Lost'"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "❌ Kayıp Müşteri",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "countdistinct(household_key)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 0,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "avg_monetary",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "rfm_analysis",
+                  "fields": [
+                    {
+                      "name": "avg(monetary_value)",
+                      "expression": "AVG(`monetary_value`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "💰 Ort. Harcama",
+                "showTitle": true
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "avg(monetary_value)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 3,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "segment_distribution",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "rfm_analysis",
+                  "fields": [
+                    {
+                      "name": "countdistinct(household_key)",
+                      "expression": "COUNT(DISTINCT `household_key`)"
+                    },
+                    {
+                      "name": "customer_segment",
+                      "expression": "`customer_segment`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "📊 Müşteri Segment Dağılımı",
+                "showTitle": true
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "countdistinct(household_key)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "household_key"
+                },
+                "color": {
+                  "fieldName": "customer_segment",
+                  "displayName": "customer_segment",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "segment_monetary",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "rfm_analysis",
+                  "fields": [
+                    {
+                      "name": "customer_segment",
+                      "expression": "`customer_segment`"
+                    },
+                    {
+                      "name": "sum(monetary_value)",
+                      "expression": "SUM(`monetary_value`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "💰 Segmentlere Göre Toplam Harcama",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "customer_segment",
+                  "displayName": "customer_segment",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(monetary_value)",
+                  "displayName": "monetary_value",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "customer_segment",
+                  "displayName": "customer_segment",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "rfm_score_dist",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "rfm_analysis",
+                  "fields": [
+                    {
+                      "name": "RFM_segment",
+                      "expression": "`RFM_segment`"
+                    },
+                    {
+                      "name": "countdistinct(household_key)",
+                      "expression": "COUNT(DISTINCT `household_key`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "📈 RFM Skor Dağılımı",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "RFM_segment",
+                  "displayName": "RFM_segment",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "countdistinct(household_key)",
+                  "displayName": "household_key",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "RFM_segment",
+                  "displayName": "RFM_segment",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "campaign_vs_noncampaign",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "customer_behavior",
+                  "fields": [
+                    {
+                      "name": "customer_group",
+                      "expression": "`customer_group`"
+                    },
+                    {
+                      "name": "sum(customer_count)",
+                      "expression": "SUM(`customer_count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "📊 Kampanyalı vs Kampanyasız Müşteri",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "customer_group",
+                  "displayName": "customer_group",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(customer_count)",
+                  "displayName": "customer_count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "customer_group",
+                  "displayName": "customer_group",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 18,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "avg_basket_comparison",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "customer_behavior",
+                  "fields": [
+                    {
+                      "name": "customer_group",
+                      "expression": "`customer_group`"
+                    },
+                    {
+                      "name": "avg(avg_basket_value)",
+                      "expression": "AVG(`avg_basket_value`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "💰 Ortalama Sepet Değeri Karşılaştırma",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "customer_group",
+                  "displayName": "customer_group",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(avg_basket_value)",
+                  "displayName": "avg_basket_value",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "customer_group",
+                  "displayName": "customer_group",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 18,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "total_baskets_comparison",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "customer_behavior",
+                  "fields": [
+                    {
+                      "name": "customer_group",
+                      "expression": "`customer_group`"
+                    },
+                    {
+                      "name": "sum(total_baskets)",
+                      "expression": "SUM(`total_baskets`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "🛒 Toplam Satın Alma Karşılaştırma",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "customer_group",
+                  "displayName": "customer_group",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_baskets)",
+                  "displayName": "total_baskets",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "customer_group",
+                  "displayName": "customer_group",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 24,
+            "width": 12,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "8860fde8",
+      "displayName": "ETL & Data Quality Monitoring",
+      "layout": [
+        {
+          "widget": {
+            "name": "batch-status",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "6accdd96",
+                  "fields": [
+                    {
+                      "name": "BatchStatus",
+                      "expression": "`BatchStatus`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "✅ Batch Durumu",
+                "showDescription": true,
+                "description": "Mevcut batch durumu"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "BatchStatus"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "successful-loads",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "6accdd96",
+                  "fields": [
+                    {
+                      "name": "sum(TableLoadCount)",
+                      "expression": "SUM(`TableLoadCount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "📊 Başarılı Yüklemeler",
+                "showDescription": true,
+                "description": "Toplam başarılı tablo yüklemeleri"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(TableLoadCount)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 3,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "failed-loads",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "6accdd96",
+                  "fields": [
+                    {
+                      "name": "sum(FailedCount)",
+                      "expression": "SUM(`FailedCount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "⚠️ Başarısız Yüklemeler",
+                "showDescription": true,
+                "description": "Toplam başarısız yükleme sayısı"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(FailedCount)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 0,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "inserted-rows",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "6accdd96",
+                  "fields": [
+                    {
+                      "name": "sum(TotalInsertedRowCount)",
+                      "expression": "SUM(`TotalInsertedRowCount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "➕ Eklenen Kayıtlar",
+                "showDescription": true,
+                "description": "Toplam eklenen satır sayısı"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(TotalInsertedRowCount)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 3,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "rejected-rows",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "6accdd96",
+                  "fields": [
+                    {
+                      "name": "sum(TotalRejectedRowCount)",
+                      "expression": "SUM(`TotalRejectedRowCount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "❌ Reddedilen Kayıtlar",
+                "showDescription": true,
+                "description": "Toplam reddedilen satır sayısı"
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(TotalRejectedRowCount)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 0,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "eea71305",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0124ad2c",
+                  "fields": [
+                    {
+                      "name": "LayerName",
+                      "expression": "`LayerName`"
+                    },
+                    {
+                      "name": "sum(CheckCount)",
+                      "expression": "SUM(`CheckCount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "🔍 Katmana Göre Kontrol Sayısı",
+                "showDescription": true,
+                "description": "Veri kalite kontrol sayıları"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "LayerName",
+                  "axis": {
+                    "title": "Katman"
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(CheckCount)",
+                  "axis": {
+                    "title": "Kontrol Sayısı"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "47f0deef",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0124ad2c",
+                  "fields": [
+                    {
+                      "name": "LayerName",
+                      "expression": "`LayerName`"
+                    },
+                    {
+                      "name": "avg(FailureRate)",
+                      "expression": "AVG(`FailureRate`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "📉 Katmana Göre Hata Oranı",
+                "showDescription": true,
+                "description": "Veri kalite hata oranları"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "LayerName",
+                  "axis": {
+                    "title": "Katman"
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(FailureRate)",
+                  "axis": {
+                    "title": "Hata Oranı (%)"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 12,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "katman-yukleme-sonucu",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "6accdd96",
+                  "fields": [
+                    {
+                      "name": "BatchID",
+                      "expression": "`BatchID`"
+                    },
+                    {
+                      "name": "sum(SuccessCount)",
+                      "expression": "SUM(`SuccessCount`)"
+                    },
+                    {
+                      "name": "sum(WarningCount)",
+                      "expression": "SUM(`WarningCount`)"
+                    },
+                    {
+                      "name": "sum(FailedCount)",
+                      "expression": "SUM(`FailedCount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "📊 Batch Yükleme Sonuçları",
+                "showDescription": true,
+                "description": "Batch bazında başarı, uyarı ve hata sayıları"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "BatchID",
+                  "axis": {
+                    "title": "Batch ID"
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "fields": [
+                    {
+                      "fieldName": "sum(SuccessCount)",
+                      "displayName": "Başarılı"
+                    },
+                    {
+                      "fieldName": "sum(WarningCount)",
+                      "displayName": "Uyarı"
+                    },
+                    {
+                      "fieldName": "sum(FailedCount)",
+                      "displayName": "Hatalı"
+                    }
+                  ],
+                  "axis": {
+                    "title": "Sayı"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "batch-durumlari",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "6accdd96",
+                  "fields": [
+                    {
+                      "name": "BatchStatus",
+                      "expression": "`BatchStatus`"
+                    },
+                    {
+                      "name": "count(BatchID)",
+                      "expression": "COUNT(`BatchID`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "🔄 Batch Durum Dağılımı",
+                "showDescription": true,
+                "description": "Batch durumlarının dağılımı"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "BatchStatus",
+                  "axis": {
+                    "title": "Durum"
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "count(BatchID)",
+                  "axis": {
+                    "title": "Batch Sayısı"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "canvasBackgroundColor": {
+        "light": "#F5F7FA",
+        "dark": "#0D1117"
+      },
+      "widgetBackgroundColor": {
+        "light": "#FFFFFF",
+        "dark": "#161B22"
+      },
+      "visualizationColors": [
+        "#2E5EAA",
+        "#00A76F",
+        "#FF6B35",
+        "#FFB627",
+        "#8B5CF6",
+        "#EC4899",
+        "#06B6D4",
+        "#84CC16"
+      ],
+      "widgetHeaderAlignment": "LEFT",
+      "widgetPadding": 16,
+      "widgetCornerRadius": 12,
+      "widgetShadow": 10,
+      "fontSettings": {
+        "base": {
+          "fontFamily": "Inter",
+          "fontColor": {
+            "light": "#1F272D",
+            "dark": "#E8EAED"
+          },
+          "fontSize": 13
+        },
+        "widgetTitle": {
+          "fontFamily": "Inter",
+          "fontColor": {
+            "light": "#0D1117",
+            "dark": "#FFFFFF"
+          },
+          "fontSize": 16,
+          "fontWeight": 600
+        },
+        "fieldTitle": {
+          "textCase": "TEXT_CASE_UPPERCASE",
+          "fontSize": 12,
+          "fontWeight": 500
+        },
+        "fieldValue": {
+          "fontSize": 13,
+          "fontWeight": 400
+        }
+      }
+    },
+    "applyModeEnabled": false
+  }
+}
